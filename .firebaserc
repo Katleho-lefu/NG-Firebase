@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "crud-firebase-80089"
+  },
+  "targets": {
+    "crud-firebase-80089": {
+      "hosting": {
+        "angular-firebase": [
+          "crud-firebase-80089"
+        ]
+      }
+    }
+  }
+}
