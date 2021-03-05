@@ -14,17 +14,20 @@ export class OrdersService {
     completed: new FormControl(false)
   });
 
+  //method to create an order in firebase
   createCoffeeOrder(data) {
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection("coffeeOrders")
         .add(data)
         .then(res => { }, err => reject(err));
+        console.log('Order SENT!!');
+        
     });
   }
 
+  //method that reads/returns coffeOrders from the firebase
   getCoffeeOrders() { 
-    return 
-     this.firestore.collection("coffeeOrders").snapshotChanges();
+    return this.firestore.collection("coffeeOrders").snapshotChanges();
   }
 }

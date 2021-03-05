@@ -1,23 +1,25 @@
-
 <table>
-    <thead>
-      <tr>
-          <th>Name</th>
-          <th>Item Name</th>
-          <th>Item Price</th>
-          <th>actions</th>
-          <th>actions</th>
-      </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th>Order number</th>
+      <th>Customer Name</th>
+      <th>Drink</th>
+      <th>actions</th>
+      <th>actions</th>
+    </tr>
+  </thead>
 
-    <tbody>
-      <tr>
-        <td>Alvin</td>
-        <td>Eclair</td>
-        <td>$0.87</td>
-        <td><i class="material-icons">add</i></td>
-        <td><i class="material-icons">delete</i></td>
-      </tr>  
-    </tbody>
-  </table>
-        
+  <tbody>
+    <tr *ngFor="let order of coffeeOrders">
+      <td>{{ order.payload.doc.data().orderNumber }}</td>
+      <td>{{ order.payload.doc.data().customerName }}</td>
+      <td><span 
+        *ngFor="let coffee of order.payload.doc.data().coffeeOrder">
+       {{ coffee }}
+      </span>
+   </td>
+      <td><i class="material-icons">add</i></td>
+      <td><i class="material-icons">delete</i></td>
+    </tr>
+  </tbody>
+</table>

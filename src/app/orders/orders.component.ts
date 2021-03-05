@@ -1,6 +1,7 @@
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../shared/orders.service';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-orders',
@@ -29,11 +30,8 @@ export class OrdersComponent implements OnInit {
     let data = this.ordersService.form.value;
     
    this.ordersService.createCoffeeOrder(data)
-       .then(res => {
-           /*do something here....
-           maybe clear the form or give a success message*/
+       .then(res => { });
 
-       });
 }
 
 }
