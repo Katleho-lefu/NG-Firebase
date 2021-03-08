@@ -11,10 +11,10 @@
 
   <tbody>
     <tr *ngFor="let order of coffeeOrders">
-      <td>{{ order.payload.doc.data().orderNumber }}</td>
-      <td>{{ order.payload.doc.data().customerName }}</td>
+      <td>{{ order.orderNumber }}</td>
+      <td>{{ order.customerName }}</td>
       <td><span 
-        *ngFor="let coffee of order.payload.doc.data().coffeeOrder">
+        *ngFor="let coffee of order.coffeeOrder">
        {{ coffee }}
       </span>
    </td>

@@ -28,6 +28,6 @@ export class OrdersService {
 
   //method that reads/returns coffeOrders from the firebase
   getCoffeeOrders() { 
-    return this.firestore.collection("coffeeOrders").snapshotChanges();
+    return this.firestore.collection("coffeeOrders").get();
   }
 }
