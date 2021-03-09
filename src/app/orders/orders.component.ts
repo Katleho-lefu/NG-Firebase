@@ -29,8 +29,9 @@ export class OrdersComponent implements OnInit {
     this.ordersService.form.value.coffeeOrder = this.coffeeOrder;
     let data = this.ordersService.form.value;
     this.ordersService.createCoffeeOrder(data)
-       .then(res => {});
-       console.log(data)
+       .then(() => {
+        this.ordersService.getCoffeeOrders()
+       });
 }
 
 }

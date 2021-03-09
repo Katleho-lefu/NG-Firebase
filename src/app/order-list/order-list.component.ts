@@ -13,6 +13,7 @@ export class OrderListComponent implements OnInit {
 
   ngOnInit() {
     this.getCoffeeOrders();
+
   }
 
 
@@ -20,8 +21,9 @@ export class OrderListComponent implements OnInit {
     this.ordersService.getCoffeeOrders().toPromise().then(res => {
       res.forEach(item => {
         this.coffeeOrders.push(item.data())
-        console.log(item.id);
-
+        this.coffeeOrders.sort((a, b) => {
+          const dateA: any = new Date(a.timeStamp), dateB: any = new Date(b.timeStamp)
+         return dateB - dateA})
       })
     }).catch(err => {
       console.log(err.message); 

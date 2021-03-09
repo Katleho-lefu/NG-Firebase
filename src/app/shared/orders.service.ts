@@ -6,7 +6,9 @@ import { FormGroup, FormControl } from '@angular/forms';
   providedIn: 'root'
 })
 export class OrdersService {
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) {
+    
+   }
   form = new FormGroup({
     customerName: new FormControl(''),
     orderNumber: new FormControl(''),
@@ -19,7 +21,12 @@ export class OrdersService {
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection("coffeeOrders")
-        .add(data)
+        .add({customerName: data.customerName,
+          orderNumber: data.orderNumber,
+          coffeeOrder: data.coffeeOrder,
+          completed: data.completed,
+          timeStamp: Date.now()
+        })
         .then(res => { }, err => reject(err));
         console.log('Order SENT!!');
         
