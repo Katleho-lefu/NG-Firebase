@@ -1,25 +1,32 @@
-<table>
-  <thead>
-    <tr>
-      <th>Order number</th>
-      <th>Customer Name</th>
-      <th>Drink</th>
-      <th>actions</th>
-      <th>actions</th>
-    </tr>
-  </thead>
+<div >
 
-  <tbody>
-    <tr *ngFor="let order of coffeeOrders">
-      <td>{{ order.orderNumber }}</td>
-      <td>{{ order.customerName }}</td>
-      <td><span 
-        *ngFor="let coffee of order.coffeeOrder">
-       {{ coffee }}
-      </span>
-   </td>
-      <td><i class="material-icons">add</i></td>
-      <td><i class="material-icons" (click)="delete()">delete</i></td>
-    </tr>
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Order number</th>
+        <th>Customer Name</th>
+        <th>Drink</th>
+        <th>actions</th>
+        <th>actions</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let order of coffeeOrders">
+        <td>{{ order.orderNumber }}</td>
+        <td>{{ order.customerName }}</td>
+        <td><span 
+          *ngFor="let coffee of order.coffeeOrder">
+         {{ coffee }}
+        </span>
+     </td>
+     <td [hidden]= "order.coffeeOrder.completed" 
+     (click)="markCompleted(order)">
+    <i class="material-icons">check</i>
+  </td>
+        <td><i class="material-icons" (click)="deleteOrder(order)">delete</i></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
