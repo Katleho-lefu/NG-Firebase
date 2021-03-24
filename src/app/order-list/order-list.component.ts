@@ -35,7 +35,7 @@ export class OrderListComponent implements OnInit {
   //Updating method
   markCompleted = data => this.ordersService.updateCoffeeOrder(data);
 
-  //delete
+  //delete order
    deleteOrder (data){
     this.ordersService.deleteCoffeeOrder(data).then(()=>{
       this.coffeeOrders = []

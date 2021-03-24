@@ -28,8 +28,9 @@ export class OrdersService {
           completed: data.completed,
           timeStamp: Date.now()
         })
-        .then(res => { }, err => reject(err));
-      console.log('Order SENT!!');
+        .then(() => {}, 
+        err => reject(err));
+      console.log('Order sent!!');
 
     });
   }
