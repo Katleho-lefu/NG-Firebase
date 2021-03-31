@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { OrdersComponent } from '../orders/orders.component';
 import { OrdersService } from '../shared/orders.service';
 
 @Component({
@@ -8,15 +9,22 @@ import { OrdersService } from '../shared/orders.service';
 })
 export class OrderListComponent implements OnInit {
 
+
   coffeeOrders:any[]=[];
 
   constructor(private ordersService:OrdersService ) {}
 
+
   ngOnInit() {
+    this.load()
+  }
+
+  load(){
+
     this.getCoffeeOrders();
     console.log(this.coffeeOrders);
-    
   }
+
 
 //Getting back orders from firebase and pushing them into an array so we can loop in the view
   getCoffeeOrders() {
@@ -37,12 +45,13 @@ export class OrderListComponent implements OnInit {
 
   //delete order
    deleteOrder (data){
-    this.ordersService.deleteCoffeeOrder(data).then(()=>{
-      this.coffeeOrders = []
-      this.getCoffeeOrders()
-      console.log('Deleted order');
-    }).catch(err => {
-      return err.message
-    })
+    this.ordersService.deleteCoffeeOrder(data);
+     this.refresh();
+   }
+
+   refresh(){
+    this.coffeeOrders = []
+    this.getCoffeeOrders()
+    console.log('Deleted order');
    }
 }

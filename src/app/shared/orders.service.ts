@@ -6,9 +6,10 @@ import { FormGroup, FormControl } from '@angular/forms';
   providedIn: 'root'
 })
 export class OrdersService {
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore) {}
 
-  }
+  coffeeOrders: any =[];
+
   form = new FormGroup({
     customerName: new FormControl(''),
     orderNumber: new FormControl(''),
@@ -30,8 +31,6 @@ export class OrdersService {
         })
         .then(() => {}, 
         err => reject(err));
-      console.log('Order sent!!');
-
     });
   }
 
@@ -54,8 +53,20 @@ export class OrdersService {
     return this.firestore
       .collection("coffeeOrders")
       .doc(coffeeOrders.id)
-      .delete();
+      .delete().then(()=>{this.refresh()})
+      // .then(()=>{
+      //   this.coffeeOrders = []
+      //   this.getCoffeeOrders()
+      // })
+      
   }
+
+  //refresh
+  refresh(){
+    this.coffeeOrders = []
+    this.getCoffeeOrders()
+    console.log('Deleted order');
+   }
 
 
 }
