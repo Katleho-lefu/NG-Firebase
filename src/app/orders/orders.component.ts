@@ -1,8 +1,7 @@
 import { FormControl } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../shared/orders.service';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
-import { OrderListComponent } from '../order-list/order-list.component';
+
 
 @Component({
   selector: 'orders',
@@ -16,7 +15,7 @@ export class OrdersComponent implements OnInit {
   constructor(public ordersService: OrdersService) { }
 
   coffees = ["Americano", "Flat White", "Cappuccino", "Latte", "Espresso", "Machiato", "Mocha", "Hot Chocolate", "Tea"];
-  coffeeOrder: any = [];
+  coffeeOrder = [];
 
   ngOnInit(): void {
 

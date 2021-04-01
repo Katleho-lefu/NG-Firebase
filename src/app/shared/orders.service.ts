@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,10 @@ export class OrdersService {
   constructor(private firestore: AngularFirestore) {}
 
   coffeeOrders: any =[];
+
+  public subject = new Subject<any>();
+  private coffee_orders = new  BehaviorSubject(this.coffeeOrders);
+
 
   form = new FormGroup({
     customerName: new FormControl(''),
@@ -45,7 +50,6 @@ export class OrdersService {
       .collection("coffeeOrders")
       .doc(data.payload.doc.id)
       .set({ completed: true }, { merge: true });
-    console.log("im updated")
   }
 
   // Delete Method
