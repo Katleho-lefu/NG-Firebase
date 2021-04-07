@@ -1,20 +1,37 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-  constructor(private firestore: AngularFirestore) {
 
-  }
+  invokeOrderListComponentFunction = new EventEmitter();    
+  subsVar: Subscription;  
+
+  constructor(private firestore: AngularFirestore) {}
+
   form = new FormGroup({
     customerName: new FormControl(''),
     orderNumber: new FormControl(''),
     coffeeOrder: new FormControl(''),
     completed: new FormControl(false)
   });
+
+
+  
+       
+  onFirstComponentButtonClick() {    
+    this.invokeOrderListComponentFunction.emit();    
+  }    
+
+
+  refresh(){
+    return this.getCoffeeOrders()
+  }
+
 
   //method to create an order in firebase
   createCoffeeOrder(data) {

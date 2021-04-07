@@ -15,12 +15,27 @@ export class OrdersComponent implements OnInit {
   coffees = ["Americano", "Flat White", "Cappuccino", "Latte", "Espresso", "Machiato", "Mocha", "Hot Chocolate", "Tea"];
   coffeeOrder = [];
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void{
+    if(this.ordersService.subsVar == undefined){
+      this.ordersService.subsVar = this.ordersService.refresh().subscribe(()=>{
+
+        /*check IF thers's something on the form otherwise it will execute without
+         adding anyhing and will show only a space in the view */
+        if(this.ordersService.form.value){
+          this.onSubmit()
+        }
+        else{
+          alert("please fill out form first")
+        }
+        
+      })
+    }
   }
 
   //pushing the order into array[]
-  addCoffee = coffee => this.coffeeOrder.push(coffee);
+  addCoffee(coffee){
+    this.coffeeOrder.push(coffee);
+  }
 
 
   // creating order
@@ -29,9 +44,9 @@ export class OrdersComponent implements OnInit {
       let data = this.ordersService.form.value;
       this.ordersService.createCoffeeOrder(data)
          .then(() => {
-          this.ordersService.getCoffeeOrders()
+          this.ordersService.refresh()
          });
-}
+  }
 
   //removing the order
   removeCoffee = coffee => {
