@@ -1,20 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, FormControl } from '@angular/forms';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) {
 
-  coffeeOrders: any =[];
-
-  public subject = new Subject<any>();
-  private coffee_orders = new  BehaviorSubject(this.coffeeOrders);
-
-
+  }
   form = new FormGroup({
     customerName: new FormControl(''),
     orderNumber: new FormControl(''),
@@ -36,6 +30,8 @@ export class OrdersService {
         })
         .then(() => {}, 
         err => reject(err));
+      console.log('Order sent!!');
+
     });
   }
 
@@ -50,6 +46,7 @@ export class OrdersService {
       .collection("coffeeOrders")
       .doc(data.payload.doc.id)
       .set({ completed: true }, { merge: true });
+    console.log("im updated")
   }
 
   // Delete Method
@@ -57,20 +54,8 @@ export class OrdersService {
     return this.firestore
       .collection("coffeeOrders")
       .doc(coffeeOrders.id)
-      .delete().then(()=>{this.refresh()})
-      // .then(()=>{
-      //   this.coffeeOrders = []
-      //   this.getCoffeeOrders()
-      // })
-      
+      .delete();
   }
-
-  //refresh
-  refresh(){
-    this.coffeeOrders = []
-    this.getCoffeeOrders()
-    console.log('Deleted order');
-   }
 
 
 }

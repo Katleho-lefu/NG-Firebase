@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../shared/orders.service';
-
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'orders',
@@ -9,8 +9,6 @@ import { OrdersService } from '../shared/orders.service';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  
-
 
   constructor(public ordersService: OrdersService) { }
 
@@ -18,19 +16,22 @@ export class OrdersComponent implements OnInit {
   coffeeOrder = [];
 
   ngOnInit(): void {
-
+    
   }
 
   //pushing the order into array[]
   addCoffee = coffee => this.coffeeOrder.push(coffee);
 
 
-  //creating order
+  // creating order
   onSubmit() {
       this.ordersService.form.value.coffeeOrder = this.coffeeOrder;
       let data = this.ordersService.form.value;
       this.ordersService.createCoffeeOrder(data)
-  }
+         .then(() => {
+          this.ordersService.getCoffeeOrders()
+         });
+}
 
   //removing the order
   removeCoffee = coffee => {

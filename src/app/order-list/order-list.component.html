@@ -1,4 +1,3 @@
-
 <div >
 
   <table>
@@ -22,7 +21,7 @@
         </span>
      </td>
      <td [hidden]= "order.coffeeOrder.completed" 
-     (click)="markCompleted()">
+     (click)="markCompleted(order)">
     <i class="material-icons">check</i>
   </td>
         <td><i class="material-icons" (click)="deleteOrder(order)">delete</i></td>
