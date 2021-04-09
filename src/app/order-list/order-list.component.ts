@@ -17,7 +17,7 @@ export class OrderListComponent implements OnInit {
     console.log(this.coffeeOrders);
   }
 
-//Getting back orders from firebase and pushing them into an array so we can loop in the view
+  //Getting back orders from firebase and pushing them into an array so we can loop in the view
   getCoffeeOrders() {
     this.ordersService.getCoffeeOrders().toPromise().then(res => {
       res.forEach((item: any) => {        
@@ -27,7 +27,7 @@ export class OrderListComponent implements OnInit {
          return dateB - dateA})
       })
     }).catch(err => {
-      console.log(err.message); 
+      console.log(err.message);
     })
   }
 
@@ -37,11 +37,15 @@ export class OrderListComponent implements OnInit {
   //delete order
    deleteOrder (data){
     this.ordersService.deleteCoffeeOrder(data).then(()=>{
-      this.coffeeOrders = []
-      this.getCoffeeOrders()
-      console.log('Deleted order');
+      this.refresh();
     }).catch(err => {
       return err.message
     })
+   }
+
+   //refresh
+   refresh(){
+    this.coffeeOrders = []
+    this.getCoffeeOrders()
    }
 }

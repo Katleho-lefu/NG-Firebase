@@ -1,5 +1,6 @@
+import { OrderListComponent } from './../order-list/order-list.component';
 import { FormControl } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { OrdersService } from '../shared/orders.service';
 import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
@@ -12,24 +13,13 @@ export class OrdersComponent implements OnInit {
 
   constructor(public ordersService: OrdersService) { }
 
+  @ViewChild('one') one: OrderListComponent
+
   coffees = ["Americano", "Flat White", "Cappuccino", "Latte", "Espresso", "Machiato", "Mocha", "Hot Chocolate", "Tea"];
   coffeeOrder = [];
 
   ngOnInit(): void{
-    if(this.ordersService.subsVar == undefined){
-      this.ordersService.subsVar = this.ordersService.refresh().subscribe(()=>{
-
-        /*check IF thers's something on the form otherwise it will execute without
-         adding anyhing and will show only a space in the view */
-        if(this.ordersService.form.value){
-          this.onSubmit()
-        }
-        else{
-          alert("please fill out form first")
-        }
-        
-      })
-    }
+  
   }
 
   //pushing the order into array[]
@@ -37,15 +27,12 @@ export class OrdersComponent implements OnInit {
     this.coffeeOrder.push(coffee);
   }
 
-
-  // creating order
+  //creating order
   onSubmit() {
       this.ordersService.form.value.coffeeOrder = this.coffeeOrder;
       let data = this.ordersService.form.value;
-      this.ordersService.createCoffeeOrder(data)
-         .then(() => {
-          this.ordersService.refresh()
-         });
+      this.ordersService.createCoffeeOrder(data);
+      this.one.refresh()
   }
 
   //removing the order

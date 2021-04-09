@@ -8,32 +8,24 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 })
 export class OrdersService {
 
-  invokeOrderListComponentFunction = new EventEmitter();    
-  subsVar: Subscription;  
+  coffeeOrders:any[] = [];  
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor( private firestore: AngularFirestore) {}
 
   form = new FormGroup({
     customerName: new FormControl(''),
     orderNumber: new FormControl(''),
     coffeeOrder: new FormControl(''),
     completed: new FormControl(false)
-  });
-
-
+  }); 
   
-       
-  onFirstComponentButtonClick() {    
-    this.invokeOrderListComponentFunction.emit();    
-  }    
-
-
+  //refresh method
   refresh(){
-    return this.getCoffeeOrders()
+    return this.getCoffeeOrders();
   }
 
 
-  //method to create an order in firebase
+  //method to create an order in firebase inside the coffee orders collection
   createCoffeeOrder(data) {
     return new Promise<any>((resolve, reject) => {
       this.firestore
@@ -48,22 +40,20 @@ export class OrdersService {
         .then(() => {}, 
         err => reject(err));
       console.log('Order sent!!');
-
     });
   }
 
   //method that reads/returns coffeOrders from the firebase
-  getCoffeeOrders() {
+  getCoffeeOrders(){
     return this.firestore.collection("coffeeOrders").get();
   }
 
-  //method to update/ edit the table
+  //method to update/edit the table
   updateCoffeeOrder(data) {
     return this.firestore
       .collection("coffeeOrders")
       .doc(data.payload.doc.id)
       .set({ completed: true }, { merge: true });
-    console.log("im updated")
   }
 
   // Delete Method
